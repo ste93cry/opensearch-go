@@ -79,8 +79,12 @@ func (r AliasDeleteReq) GetRequest() (*http.Request, error) {
 
 	var path strings.Builder
 	path.Grow(9 + len(indices) + len(aliases))
-	path.WriteString("/")
-	path.WriteString(indices)
+
+	if len(indices) > 0 {
+		path.WriteString("/")
+		path.WriteString(indices)
+	}
+
 	path.WriteString("/_alias/")
 	path.WriteString(aliases)
 	return opensearch.BuildRequest(
@@ -119,8 +123,12 @@ func (r AliasGetReq) GetRequest() (*http.Request, error) {
 
 	var path strings.Builder
 	path.Grow(9 + len(indices) + len(aliases))
-	path.WriteString("/")
-	path.WriteString(indices)
+
+	if indices != "" {
+		path.WriteString("/")
+		path.WriteString(indices)
+	}
+
 	path.WriteString("/_alias/")
 	path.WriteString(aliases)
 	return opensearch.BuildRequest(
@@ -160,8 +168,12 @@ func (r AliasPutReq) GetRequest() (*http.Request, error) {
 
 	var path strings.Builder
 	path.Grow(9 + len(indices) + len(r.Alias))
-	path.WriteString("/")
-	path.WriteString(indices)
+
+	if indices != "" {
+		path.WriteString("/")
+		path.WriteString(indices)
+	}
+
 	path.WriteString("/_alias/")
 	path.WriteString(r.Alias)
 	return opensearch.BuildRequest(
@@ -200,8 +212,12 @@ func (r AliasExistsReq) GetRequest() (*http.Request, error) {
 
 	var path strings.Builder
 	path.Grow(9 + len(indices) + len(r.Alias))
-	path.WriteString("/")
-	path.WriteString(indices)
+
+	if indices != "" {
+		path.WriteString("/")
+		path.WriteString(indices)
+	}
+
 	path.WriteString("/_alias/")
 	path.WriteString(aliases)
 	return opensearch.BuildRequest(
